@@ -206,4 +206,9 @@ public class RedisLock implements AutoCloseable {
     }
   }
   
+  synchronized void sendWakeUpSignal() {
+    signal = true; 
+    notifyAll();
+  }
+  
 }

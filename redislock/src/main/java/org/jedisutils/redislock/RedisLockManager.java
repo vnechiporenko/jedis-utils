@@ -263,9 +263,7 @@ public class RedisLockManager {
     for (RedisLockWeakReference ref : locks.values()) {
       RedisLock lock = ref.get();
       if (lock != null) {
-        synchronized (lock) {
-          lock.notifyAll();
-        }
+        lock.sendWakeUpSignal();
       }
     }
   }
@@ -278,9 +276,7 @@ public class RedisLockManager {
     RedisLockWeakReference ref = locks.get(key);
     RedisLock lock = ref.get();
     if (lock != null) {
-      synchronized (lock) {
-        lock.notifyAll();
-      }
+      lock.sendWakeUpSignal();
     }
   }
   
